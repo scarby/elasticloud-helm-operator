@@ -1,0 +1,17 @@
+---
+elasticsearch:
+  node:
+    java_opts: '-Xms4g -Xmx4g'
+  storage:
+    enabled: true
+    size: '100Gi'
+    class:
+      name: 'gce-ssd'
+      create: true
+#  snapshot:
+#    type: "gcs"
+#    destinatiom: "elasticsearch-backups-089691"
+#    schedule: "@daily"
+#    credentialsSecret: "gcs-credentials"
+tls:
+  enabled: false
