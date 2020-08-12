@@ -1,7 +1,7 @@
 ---
 elasticsearch:
   node:
-    java_opts: '-Xms4g -Xmx4g'
+    java_opts: '-Xms2g -Xmx2g'
   storage:
     enabled: true
     size: '100Gi'

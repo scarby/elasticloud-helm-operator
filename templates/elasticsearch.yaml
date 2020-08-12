@@ -14,6 +14,13 @@ spec:
       podTemplate:
         spec:
           initContainers:
+          - command:
+            - sh
+            - -c
+            - sysctl -w vm.max_map_count=262144
+            name: set-max-map-count
+            securityContext:
+              privileged: true
           {{- if (eq .Values.elasticsearch.snapshot.type "gcs")}}
           - name: install-plugins
             command:
@@ -29,7 +36,7 @@ spec:
               value: "{{.Values.elasticsearch.node.java_opts}}"
             resources:
               requests:
-                memory: 8Gi
+                memory: 4Gi
       config:
         node.master: {{.Values.elasticsearch.node.master}}
         node.data: {{.Values.elasticsearch.node.data}}
@@ -51,7 +58,9 @@ spec:
       spec:
         # expose this cluster Service with a LoadBalancer
         type: {{.Values.elasticsearch.service.type}}
+    {{- if .Values.tls.enabled }}
     tls:
       certificate:
         # provide your own certificate
         secretName: {{.Values.tls.secretName}}
+    {{- end }}

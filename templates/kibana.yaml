@@ -13,9 +13,11 @@ spec:
       spec:
         type: LoadBalancer
         sessionAffinity: ClientIP
+    {{- if .Values.tls.enabled}}
     tls:
       certificate:
          secretName: {{ .Values.tls.secretName }}
+    {{- end }}
   podTemplate:
     metadata:
       labels:

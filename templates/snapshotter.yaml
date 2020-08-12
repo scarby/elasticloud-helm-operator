@@ -1,3 +1,4 @@
+{{- if .Values.elasticsearch.snapshot.type }}
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
@@ -25,3 +26,4 @@ spec:
           - name: es-basic-auth
             secret:
               secretName: {{.Release.Name}}-es-elastic-user
+{{- end }}
